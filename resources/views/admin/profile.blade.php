@@ -9,29 +9,29 @@
                     <div class="d-flex align-items-center justify-content-between mb-2">
                         <div>
                             <img class="wd-100 rounded-circle"
-                                src="{{ !empty($profileData->photo) ? url('upload/admin_images/'.$profileData->photo) : url('upload/no_image.jpg') }}"
+                                src="{{ !empty($userData->photo) ? url('upload/admin_images/'.$userData->photo) : url('upload/no_image.jpg') }}"
                                 alt="profile">
-                            <span class="h5 ms-3">Amiah Burton</span>
+                            <span class="h5 ms-3">{{ $userData->username }}</span>
                         </div>
 
                     </div>
                     <p>Hi! I'm Amiah the Senior UI Designer at NobleUI. We hope you enjoy the design and quality of
                         Social.</p>
-                    <div class="mt-3">
+                    {{-- <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Joined:</label>
                         <p class="text-muted">November 15, 2015</p>
-                    </div>
+                    </div> --}}
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Lives:</label>
-                        <p class="text-muted">New York, USA</p>
+                        <p class="text-muted">{{ $userData->address }}</p>
                     </div>
                     <div class="mt-3">
                         <label class="tx-11 fw-bolder mb-0 text-uppercase">Email:</label>
-                        <p class="text-muted">me@nobleui.com</p>
+                        <p class="text-muted">{{ $userData->email }}</p>
                     </div>
                     <div class="mt-3">
-                        <label class="tx-11 fw-bolder mb-0 text-uppercase">Website:</label>
-                        <p class="text-muted">www.nobleui.com</p>
+                        <label class="tx-11 fw-bolder mb-0 text-uppercase">Phone:</label>
+                        <p class="text-muted">{{ $userData->phone }}</p>
                     </div>
                     <div class="mt-3 d-flex social-links">
                         <a href="javascript:;" class="btn btn-icon border btn-xs me-2">
@@ -55,30 +55,50 @@
                     <div class="card">
                         <div class="card-body">
 
-                            <h6 class="card-title">Basic Form</h6>
+                            <h6 class="card-title">Admin Profile Update</h6>
 
                             <form class="forms-sample">
                                 <div class="mb-3">
                                     <label for="exampleInputUsername1" class="form-label">Username</label>
-                                    <input type="text" class="form-control" id="exampleInputUsername1"
-                                        autocomplete="off" placeholder="Username">
+                                    <input type="text" class="form-control"
+                                    name="username" 
+                                    id="exampleInputUsername1" value="{{ $userData->username }}">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputUsername1" class="form-label">Name</label>
+                                    <input type="text" class="form-control"
+                                    name="name" 
+                                    id="exampleInputUsername1" value="{{ $userData->name }}">
                                 </div>
                                 <div class="mb-3">
                                     <label for="exampleInputEmail1" class="form-label">Email address</label>
-                                    <input type="email" class="form-control" id="exampleInputEmail1"
-                                        placeholder="Email">
+                                    <input type="email" class="form-control"
+                                    name="email" id="exampleInputEmail1"
+                                        value="{{ $userData->email }}">
                                 </div>
                                 <div class="mb-3">
-                                    <label for="exampleInputPassword1" class="form-label">Password</label>
-                                    <input type="password" class="form-control" id="exampleInputPassword1"
-                                        autocomplete="off" placeholder="Password">
+                                    <label for="exampleInputUsername1" class="form-label">Phone</label>
+                                    <input type="text" class="form-control"
+                                    name="phone" 
+                                    id="exampleInputUsername1" value="{{ $userData->phone }}">
                                 </div>
-                                <div class="form-check mb-3">
-                                    <input type="checkbox" class="form-check-input" id="exampleCheck1">
-                                    <label class="form-check-label" for="exampleCheck1">
-                                        Remember me
-                                    </label>
+                                <div class="mb-3">
+                                    <label for="exampleInputUsername1" class="form-label">Address</label>
+                                    <input type="text" class="form-control"
+                                    name="address" 
+                                    id="exampleInputUsername1" value="{{ $userData->address }}">
                                 </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputUsername1" class="form-label">Photo</label>
+                                    <input type="file" class="formFile" name="photo" id="image">
+                                </div>
+                                <div class="mb-3">
+                                    <label for="exampleInputUsername1" class="form-label"></label>
+                                    <img class="wd-80 rounded-circle" id="showImage"
+                                src="{{ !empty($userData->photo) ? url('upload/admin_images/'.$userData->photo) : url('upload/no_image.jpg') }}"
+                                alt="profile">
+                                </div>
+                                
                                 <button type="submit" class="btn btn-primary me-2">Submit</button>
                                 <button class="btn btn-secondary">Cancel</button>
                             </form>
@@ -90,6 +110,17 @@
         </div>
         <!-- middle wrapper end -->
     </div>
-
 </div>
+
+<script>
+    $(document).ready(function(){
+        $('#image').change(function(e){
+            var reader = new FileReader();
+            reader.onload = function(e){
+                $('#showImage').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(e.target.files['0']);
+        });
+    });
+</script>
 @endsection
