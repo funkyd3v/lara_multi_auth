@@ -38,6 +38,7 @@
     <link rel="shortcut icon" href="{{ asset('/assets/images/favicon.png') }}" />
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"
         integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.css" >
 </head>
 
 <body>
@@ -62,7 +63,8 @@
         </div>
     </div>
 
-    
+    <!-- toastr js-->
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
     <!-- core:js -->
     <script src="{{ asset('/assets/vendors/core/core.js') }}"></script>
     <!-- endinject -->
@@ -80,7 +82,28 @@
     <!-- Custom js for this page -->
     <script src="{{ asset('assets/js/dashboard-dark.js') }}/"></script>
     <!-- End custom js for this page -->
+    <script>
+        @if(Session::has('message'))
+        var type = "{{ Session::get('alert-type','info') }}"
+        switch(type){
+           case 'info':
+           toastr.info(" {{ Session::get('message') }} ");
+           break;
+       
+           case 'success':
+           toastr.success(" {{ Session::get('message') }} ");
+           break;
+       
+           case 'warning':
+           toastr.warning(" {{ Session::get('message') }} ");
+           break;
+       
+           case 'error':
+           toastr.error(" {{ Session::get('message') }} ");
+           break; 
+        }
+        @endif 
+       </script>
 
 </body>
-
 </html>
