@@ -38,6 +38,8 @@ Route::middleware(['auth','role:admin'])->group(function(){
     Route::get('/admin/logout', [AdminController::class, 'logout'])->name('admin.logout');
     Route::get('/admin/profile', [AdminController::class, 'profile'])->name('admin.profile');
     Route::post('/admin/profile/store', [AdminController::class, 'store'])->name('admin.profile.store');
+    Route::get('/admin/password_change', [AdminController::class, 'passwordChange'])->name('admin.password.change');
+    Route::post('/admin/password_update', [AdminController::class, 'passwordUpdate'])->name('admin.password.update');
 });
 
 // Agent Middleware
